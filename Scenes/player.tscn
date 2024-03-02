@@ -17,8 +17,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avueb"]
 size = Vector2(90, 86)
 
-[node name="Player" type="CharacterBody2D" groups=["attackable"]]
-scale = Vector2(0.75, 0.75)
+[node name="Player" type="CharacterBody2D" groups=["attackable", "player"]]
+scale = Vector2(0.8, 0.8)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_1jghh")
@@ -32,7 +32,7 @@ position = Vector2(1.04251e-15, 1.19249e-08)
 shape = SubResource("RectangleShape2D_avueb")
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(50, 0)
+position = Vector2(76, 0)
 
 [node name="WeaponTimer" type="Timer" parent="."]
 one_shot = true

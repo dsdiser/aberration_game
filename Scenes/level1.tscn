@@ -1,7 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjnqkx6qodg7u"]
+[gd_scene load_steps=11 format=3 uid="uid://cjnqkx6qodg7u"]
 
 [ext_resource type="Texture2D" uid="uid://c6krkmqdpx4dn" path="res://assets/kenney_topdownTanksRedux/Tilesheet/terrainTiles_retina.png" id="1_5o7r1"]
 [ext_resource type="PackedScene" uid="uid://c8i00b3h2h44" path="res://Scenes/player.tscn" id="2_ctywm"]
+[ext_resource type="PackedScene" uid="uid://dq348td67sajs" path="res://Scenes/Enemy.tscn" id="3_mmmcy"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_rba7q"]
+vertices = PackedVector2Array(1485, 432, -293, 432, -293, -507, 1486, -510)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1495, 442, -304, 443, -303, -517, 1497, -521)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8s25q"]
 texture = ExtResource("1_5o7r1")
@@ -2582,6 +2589,11 @@ size = Vector2(71.0001, 1803.5)
 
 [node name="Node2D" type="Node2D"]
 
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(1558, 485)
+rotation = -3.14159
+navigation_polygon = SubResource("NavigationPolygon_rba7q")
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_cyc0a")
 format = 2
@@ -2589,6 +2601,10 @@ layer_0/tile_data = PackedInt32Array(0, 393216, 0, 1, 458752, 0, 2, 524288, 0, 6
 
 [node name="player" parent="." instance=ExtResource("2_ctywm")]
 position = Vector2(201, 152)
+
+[node name="Enemy" parent="." instance=ExtResource("3_mmmcy")]
+position = Vector2(1558, 486)
+rotation = -3.14159
 
 [node name="WorldBoundary" type="StaticBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_dwtbp")

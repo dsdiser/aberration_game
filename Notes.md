@@ -23,12 +23,14 @@ Don't forget!
 ### Thursday 2/29
 Finished:
 - Better tank controls
+- Bullets are more fleshed out, can now bounce off of walls/terrain
 
 To-do:
 - Enemy ai
   - Three states: Wait, move, aim
   - Should try to utilize angles if possible
-  - need to slow down player speed
+  - need to slow down player speed to make it difficult to dodge bullets
+- Handle bullet hitting player or AI
 - Better idea of level design and how to load in levels
 
 

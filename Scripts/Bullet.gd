@@ -14,11 +14,15 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta) 
 	if collision:
 		handle_collision(collision)
+		
+func hit():
+	queue_free()
 
 func handle_collision(collision: KinematicCollision2D):
-	if collision.get_collider().is_in_group("attackable"):
-		collision.get_collider()
-		body.kill()
+	var collider = collision.get_collider()
+	if collider is Player or collider is Enemy or collider is Bullet:
+		collider.hit()
+		queue_free()
 	if num_bounces >= 1:
 		num_bounces -= 1
 		velocity = velocity.bounce(collision.get_normal())

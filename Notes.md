@@ -19,6 +19,24 @@ Don't forget!
 - Sound effects
 - Lighting
 
+### Sunday 3/3
+Finished:
+- Kill state with animation
+- Bug fix for player and ai moving after death
+
+To-do:
+- Levels
+- 
+
+### Saturday 3/2
+Finished:
+- Enemy + enemy ai
+- Bullet hitting player (no effects yet)
+
+To-do:
+- Start making levels.
+- A dotted line for the player so they know where they are shooting
+- Add effects to hits
 
 ### Thursday 2/29
 Finished:

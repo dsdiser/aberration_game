@@ -15,12 +15,14 @@ class_name Enemy
 @onready var ActionTimer: Timer = $ActionTimer
 @onready var Ray: RayCast2D = $RayCast2D
 @onready var NavAgent: NavigationAgent2D = $NavigationAgent2D
+@onready var AnimatedSprite: AnimatedSprite2D = $AnimatedSprite2D
 
 enum EnemyState {STATE_WAIT, STATE_MOVE, STATE_AIM}
 var current_state = EnemyState.STATE_WAIT
 var player: Player = null
 var is_activated = false
 var num_shots = 0
+var is_alive = true
 
 func _ready():
 	player = get_tree().get_nodes_in_group("player")[0]
@@ -68,8 +70,8 @@ func ai_process(delta):
 		# check if player has gone further away and we need to disengage
 
 func nav_to_player(delta):
-	NavAgent.target_position = player.global_position
-	var current_agent_position: Vector2 = global_position
+	if (global_position.distance_to(player.global_position) > engagement_distance):
+		NavAgent.target_position = player.global_position
 	var next_path_position: Vector2 = NavAgent.get_next_path_position()
 	var needed_rotation_direction = global_position.angle_to_point(next_path_position)
 	rotation = rotate_toward(rotation, needed_rotation_direction, rotation_speed * delta)
@@ -77,6 +79,8 @@ func nav_to_player(delta):
 	move_and_slide()
 
 func _physics_process(delta):
+	if not is_alive:
+		return
 	if not player or player.is_queued_for_deletion():
 		is_activated = false
 	else:
@@ -84,7 +88,11 @@ func _physics_process(delta):
 
 func hit():
 	# Add hit effect
-	queue_free()
+	if (AnimatedSprite.animation != 'explode'):
+		AnimatedSprite.play('explode')
+		is_alive = false
+		await AnimatedSprite.animation_finished
+		queue_free()
 
 func shoot():
 	# create bullet

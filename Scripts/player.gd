@@ -9,11 +9,16 @@ class_name Player
 @onready var Bullet : PackedScene = preload("res://Scenes/Bullet.tscn")
 @onready var collision_size = $CollisionShape2D.shape.get_rect().size
 @onready var WeaponTimer: Timer = $WeaponTimer
+@onready var AnimatedSprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var is_alive = true
 
 func _ready():
 	pass
 
 func _physics_process(delta):
+	if not is_alive:
+		return
 	var move_input = Input.get_axis("move_down", "move_up")
 	var rotation_direction = Input.get_axis("move_left", "move_right")
 	if move_input < 0:
@@ -24,13 +29,18 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(delta):
+	if not is_alive:
+		return
 	if Input.is_action_just_pressed("shoot") and WeaponTimer.is_stopped():
 		shoot()
 
 func hit():
 	# Add hit effect
-	print('OUCH!')
-	queue_free()
+	if (AnimatedSprite.animation != 'explode'):
+		AnimatedSprite.play('explode')
+		is_alive = false
+		await AnimatedSprite.animation_finished
+		queue_free()
 
 func shoot():
 	# create bullet

@@ -2603,8 +2603,11 @@ layer_0/tile_data = PackedInt32Array(0, 393216, 0, 1, 458752, 0, 2, 524288, 0, 6
 position = Vector2(201, 152)
 
 [node name="Enemy" parent="." instance=ExtResource("3_mmmcy")]
-position = Vector2(1558, 486)
+position = Vector2(1684, 506)
 rotation = -3.14159
+
+[node name="Enemy2" parent="." instance=ExtResource("3_mmmcy")]
+position = Vector2(1684, 226)
 
 [node name="WorldBoundary" type="StaticBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_dwtbp")

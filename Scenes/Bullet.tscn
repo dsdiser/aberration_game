@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dw72gyfldxlly"]
+[gd_scene load_steps=9 format=3 uid="uid://dw72gyfldxlly"]
 
 [ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_saue0"]
 [ext_resource type="Texture2D" uid="uid://def1aemx5dgya" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/bulletDark2.png" id="2_b3c6n"]
@@ -7,10 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bdba0st6axwkw" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosionSmoke3.png" id="5_a2rlx"]
 [ext_resource type="Texture2D" uid="uid://m4rwiksdx61m" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosionSmoke4.png" id="6_bvnrk"]
 [ext_resource type="Texture2D" uid="uid://q5grus22v4ct" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosionSmoke5.png" id="7_hgbaj"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tf485"]
-radius = 12.5
-height = 32.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6ktvg"]
 animations = [{
@@ -49,10 +45,8 @@ collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_saue0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.5, 0)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_tf485")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6ktvg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(2.75, -9, 8.5, -8.25, 11.5, -4.5, 12.5, -2.25, 12.75, 1, 12, 4.25, 10, 7.25, 6.5, 8.75, -12.5, 8.75, -12.5, -9)

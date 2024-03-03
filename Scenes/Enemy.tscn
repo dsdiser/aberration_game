@@ -68,9 +68,12 @@ one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(900, 0)
-collision_mask = 2
+collision_mask = 3
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 30.0
+target_desired_distance = 40.0
+debug_enabled = true
 
 [node name="BulletDetector" type="Area2D" parent="."]
 collision_layer = 0

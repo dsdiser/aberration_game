@@ -6,6 +6,7 @@ class_name Bullet
 var speed = 200
 var num_bounces = 1
 var is_active = true
+var prev_collision_id: int = -1
 
 func initialize(_speed: float, _direction: float):
 	speed = _speed
@@ -28,10 +29,11 @@ func hit():
 
 func handle_collision(collision: KinematicCollision2D):
 	var collider = collision.get_collider()
-	if collider is Player or collider is Enemy or collider is Bullet:
+	if (collider is Player or collider is Enemy or collider is Bullet) and prev_collision_id != collision.get_collider_id():
+		prev_collision_id = collision.get_collider_id()
 		collider.hit()
 		hit()
-	elif num_bounces >= 1:
+	elif num_bounces >= 1 :
 		num_bounces -= 1
 		velocity = velocity.bounce(collision.get_normal())
 		rotation = velocity.angle()

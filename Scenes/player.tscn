@@ -1,18 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8i00b3h2h44"]
+[gd_scene load_steps=12 format=3 uid="uid://c8i00b3h2h44"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_1jghh"]
-[ext_resource type="Texture2D" uid="uid://rjdatweulu1h" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_green.png" id="1_c5wyo"]
+[ext_resource type="Texture2D" uid="uid://dvf8wf1pte7d" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_blue.png" id="2_1q85x"]
 [ext_resource type="Texture2D" uid="uid://ds3fujr8vti81" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion1.png" id="3_3xqfn"]
 [ext_resource type="Texture2D" uid="uid://b68ly31xcbpxf" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion2.png" id="4_we5k8"]
 [ext_resource type="Texture2D" uid="uid://daugfheh27fy8" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion3.png" id="5_kd0j6"]
 [ext_resource type="Texture2D" uid="uid://164lx1okh11t" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion4.png" id="6_c2u0y"]
 [ext_resource type="Texture2D" uid="uid://diwd4ubu6hppr" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion5.png" id="7_hdn4f"]
+[ext_resource type="Texture2D" uid="uid://b73gxtuhnc1vi" path="res://assets/line.png" id="8_lb2fc"]
+[ext_resource type="Shader" path="res://shaders/dottedline.gdshader" id="8_nbbnv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g3v7k"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_c5wyo")
+"texture": ExtResource("2_1q85x")
 }],
 "loop": false,
 "name": &"default",
@@ -39,6 +41,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jmsex"]
+shader = ExtResource("8_nbbnv")
+
 [node name="Player" type="CharacterBody2D" groups=["attackable", "player"]]
 collision_layer = 2
 motion_mode = 1
@@ -54,8 +59,28 @@ position = Vector2(1.51992e-06, 1.19249e-08)
 build_mode = 1
 polygon = PackedVector2Array(20, -34, 27, -27, 28, -10, 37, -10, 37, 10, 28, 10, 27, 24, 20, 34, -29, 34, -37, 24, -37, -27, -28, -34)
 
-[node name="Muzzle" type="Marker2D" parent="."]
+[node name="MuzzleAim" type="Marker2D" parent="."]
+position = Vector2(42, 0)
+
+[node name="MuzzleShoot" type="Marker2D" parent="."]
 position = Vector2(76, 0)
 
 [node name="WeaponTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AimingLine" type="Line2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_jmsex")
+position = Vector2(7, 0)
+points = PackedVector2Array(38, 0)
+width = 15.0
+texture = ExtResource("8_lb2fc")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="AimingRay" type="RayCast2D" parent="."]
+target_position = Vector2(1000, 0)
+collision_mask = 5
+collide_with_areas = true

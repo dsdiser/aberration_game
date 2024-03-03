@@ -25,10 +25,6 @@ var is_alive = true
 
 func _ready():
 	player = get_tree().get_nodes_in_group("player")[0]
-	# These values need to be adjusted for the actor's speed
-	# and the navigation layout.
-	NavAgent.path_desired_distance = 4.0
-	NavAgent.target_desired_distance = 4.0
 	# Make sure to not await during _ready.
 	call_deferred("actor_setup")
 

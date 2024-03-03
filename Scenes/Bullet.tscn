@@ -1,11 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw72gyfldxlly"]
+[gd_scene load_steps=10 format=3 uid="uid://dw72gyfldxlly"]
 
 [ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_saue0"]
 [ext_resource type="Texture2D" uid="uid://def1aemx5dgya" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/bulletDark2.png" id="2_b3c6n"]
+[ext_resource type="Texture2D" uid="uid://dc2sbr40lp8tp" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosionSmoke1.png" id="3_vn1ed"]
+[ext_resource type="Texture2D" uid="uid://bslxfpm0imkh" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosionSmoke2.png" id="4_1dnsu"]
+[ext_resource type="Texture2D" uid="uid://bdba0st6axwkw" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosionSmoke3.png" id="5_a2rlx"]
+[ext_resource type="Texture2D" uid="uid://m4rwiksdx61m" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosionSmoke4.png" id="6_bvnrk"]
+[ext_resource type="Texture2D" uid="uid://q5grus22v4ct" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosionSmoke5.png" id="7_hgbaj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tf485"]
-radius = 9.0
-height = 26.0
+radius = 12.5
+height = 32.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ktvg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_b3c6n")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_vn1ed")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1dnsu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_a2rlx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_bvnrk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_hgbaj")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 10.0
+}]
 
 [node name="Bullet" type="CharacterBody2D"]
 scale = Vector2(4, 4)
@@ -14,8 +50,9 @@ collision_mask = 15
 script = ExtResource("1_saue0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_tf485")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_b3c6n")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6ktvg")

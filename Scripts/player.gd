@@ -7,7 +7,6 @@ class_name Player
 @export var projectile_speed = 400
 
 @onready var Bullet : PackedScene = preload("res://Scenes/Bullet.tscn")
-@onready var collision_size = $CollisionShape2D.shape.get_rect().size
 @onready var WeaponTimer: Timer = $WeaponTimer
 @onready var AnimatedSprite: AnimatedSprite2D = $AnimatedSprite2D
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dq348td67sajs"]
+[gd_scene load_steps=10 format=3 uid="uid://dq348td67sajs"]
 
 [ext_resource type="Texture2D" uid="uid://ceskk3wpatt56" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_red.png" id="1_c4w2j"]
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_v8lfp"]
@@ -39,23 +39,21 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgo8k"]
-size = Vector2(92, 81)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_ji03a"]
-radius = 209.289
+radius = 62.0081
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_v8lfp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_auob5")
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -2.5)
-shape = SubResource("RectangleShape2D_hgo8k")
-debug_color = Color(0.823529, 0.0156863, 0.219608, 0.419608)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1.51992e-06, 1.19249e-08)
+build_mode = 1
+polygon = PackedVector2Array(19, -31, 27, -27, 28, -13, 37, -13, 37, 13, 28, 14, 27, 24, 20, 31, -29, 31, -37, 24, -37, -27, -28, -31)
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(76, 0)

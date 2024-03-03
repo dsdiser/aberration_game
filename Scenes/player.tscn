@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8i00b3h2h44"]
+[gd_scene load_steps=9 format=3 uid="uid://c8i00b3h2h44"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_1jghh"]
 [ext_resource type="Texture2D" uid="uid://rjdatweulu1h" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_green.png" id="1_c5wyo"]
@@ -39,23 +39,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_avueb"]
-size = Vector2(90, 86)
-
 [node name="Player" type="CharacterBody2D" groups=["attackable", "player"]]
-scale = Vector2(0.8, 0.8)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_1jghh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_g3v7k")
-animation = &"explode"
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.04251e-15, 1.19249e-08)
-shape = SubResource("RectangleShape2D_avueb")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1.51992e-06, 1.19249e-08)
+build_mode = 1
+polygon = PackedVector2Array(20, -34, 27, -27, 28, -10, 37, -10, 37, 10, 28, 10, 27, 24, 20, 34, -29, 34, -37, 24, -37, -27, -28, -34)
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(76, 0)

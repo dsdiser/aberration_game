@@ -10,7 +10,6 @@ class_name Enemy
 @export var max_consecutive_shots = 2
 
 @onready var Bullet : PackedScene = preload("res://Scenes/Bullet.tscn")
-@onready var collision_size = $CollisionShape2D.shape.get_rect().size
 @onready var WeaponTimer: Timer = $WeaponTimer
 @onready var ActionTimer: Timer = $ActionTimer
 @onready var Ray: RayCast2D = $RayCast2D
@@ -67,7 +66,6 @@ func ai_process(delta):
 			# Rotate to face player
 			var needed_rotation_direction = global_position.angle_to_point(player.global_position)
 			rotation = rotate_toward(rotation, needed_rotation_direction, rotation_speed * delta)
-		# check if player has gone further away and we need to disengage
 
 func nav_to_player(delta):
 	if (global_position.distance_to(player.global_position) > engagement_distance):
@@ -105,4 +103,5 @@ func shoot():
 
 func _on_bullet_detector_body_entered(body):
 	# if a bullet is shot near the enemy, they should activate and look for the player
+	await get_tree().create_timer(2.0).timeout
 	is_activated = true

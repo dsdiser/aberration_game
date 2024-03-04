@@ -23,10 +23,10 @@ Don't forget!
 Finished:
 - Kill state with animation
 - Bug fix for player and ai moving after death
+- Aiming line
 
 To-do:
 - Levels
-- 
 
 ### Saturday 3/2
 Finished:

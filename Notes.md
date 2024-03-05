@@ -14,10 +14,31 @@ These can be gained how? By beating levels maybe? So by the final level you have
 Design ideas:
 - Dying means going back a level and losing your last aberration?
 
+## New idea? 
+
+- Make the game horror esque? 
+- Enemy tanks light up their flashlight to show as active
+- Bullets light up
+- The aberration are the enemy tanks you are fighting
+- Should try to make them look ghost-like
+
+
 Don't forget!
 - Music
 - Sound effects
 - Lighting
+
+### Monday 4/3
+Finished:
+- Some lighting work
+- Occlusion on boxes and walls 
+- Point light on player
+- Light bullets
+
+Todo:
+- Drop the 2d line from the player, add it in at lower opacity for the enemy. 
+- Add some way to make permanent lighting in the level
+
 
 ### Sunday 3/3
 Finished:

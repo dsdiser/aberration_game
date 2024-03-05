@@ -1,10 +1,10 @@
 extends CharacterBody2D
 class_name Player
 
-@export var speed = 200  # move speed in pixels/sec
+@export var speed = 125  # move speed in pixels/sec
 @export var reverse_speed = 100
 @export var rotation_speed = 1.5  # turning speed in radians/sec
-@export var projectile_speed = 400
+@export var projectile_speed = 300
 
 @onready var Bullet : PackedScene = preload("res://Scenes/Bullet.tscn")
 @onready var WeaponTimer: Timer = $WeaponTimer

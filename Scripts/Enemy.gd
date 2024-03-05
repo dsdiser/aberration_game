@@ -1,12 +1,12 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var speed = 150  # move speed in pixels/sec
+@export var speed = 75  # move speed in pixels/sec
 @export var reverse_speed = 100
-@export var rotation_speed = 1.5  # turning speed in radians/sec
-@export var alert_distance = 1000 # distance from which the enemy should start moving
-@export var engagement_distance = 750 # distance from which the enemy should start moving
-@export var projectile_speed = 400
+@export var rotation_speed = 1.  # turning speed in radians/sec
+@export var alert_distance = 500 # distance from which the enemy should start moving
+@export var engagement_distance = 300 # distance from which the enemy should start shooting
+@export var projectile_speed = 300
 @export var max_consecutive_shots = 2
 
 @onready var Bullet : PackedScene = preload("res://Scenes/Bullet.tscn")
@@ -68,8 +68,9 @@ func nav_to_player(delta):
 		NavAgent.target_position = player.global_position
 	var next_path_position: Vector2 = NavAgent.get_next_path_position()
 	var needed_rotation_direction = global_position.angle_to_point(next_path_position)
+	var rotation_ratio = clampf(abs(needed_rotation_direction) / abs(rotation), 0, 1)
 	rotation = rotate_toward(rotation, needed_rotation_direction, rotation_speed * delta)
-	velocity = transform.x * speed
+	velocity = transform.x * rotation_ratio * speed
 	move_and_slide()
 
 func _physics_process(delta):

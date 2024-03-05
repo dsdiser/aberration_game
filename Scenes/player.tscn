@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8i00b3h2h44"]
+[gd_scene load_steps=15 format=3 uid="uid://c8i00b3h2h44"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_1jghh"]
 [ext_resource type="Texture2D" uid="uid://dvf8wf1pte7d" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_blue.png" id="2_1q85x"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://diwd4ubu6hppr" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion5.png" id="7_hdn4f"]
 [ext_resource type="Texture2D" uid="uid://b73gxtuhnc1vi" path="res://assets/line.png" id="8_lb2fc"]
 [ext_resource type="Shader" path="res://shaders/dottedline.gdshader" id="8_nbbnv"]
+[ext_resource type="Texture2D" uid="uid://3hl1a4xhhrt1" path="res://assets/prop_fade_start_50.png" id="10_mffuj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g3v7k"]
 animations = [{
@@ -43,6 +44,16 @@ animations = [{
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jmsex"]
 shader = ExtResource("8_nbbnv")
+
+[sub_resource type="Gradient" id="Gradient_7xb3s"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.190574, 0.305328, 0.438525, 0.704918)
+colors = PackedColorArray(1, 1, 1, 1, 0.707558, 0.707558, 0.707558, 1, 0.439216, 0.364706, 0.462745, 1, 0.115487, 0.228095, 0.35465, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8x18q"]
+gradient = SubResource("Gradient_7xb3s")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D" groups=["attackable", "player"]]
 collision_layer = 2
@@ -84,3 +95,17 @@ end_cap_mode = 2
 target_position = Vector2(1000, 0)
 collision_mask = 5
 collide_with_areas = true
+
+[node name="Flashlight" type="PointLight2D" parent="."]
+energy = 0.5
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("10_mffuj")
+offset = Vector2(409, 8)
+texture_scale = 4.0
+
+[node name="Arealight" type="PointLight2D" parent="."]
+scale = Vector2(3, 3)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_8x18q")

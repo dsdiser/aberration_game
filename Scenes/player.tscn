@@ -77,9 +77,11 @@ position = Vector2(42, 0)
 position = Vector2(76, 0)
 
 [node name="WeaponTimer" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
 
 [node name="AimingLine" type="Line2D" parent="."]
+visible = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_jmsex")
 position = Vector2(7, 0)

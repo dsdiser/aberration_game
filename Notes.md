@@ -28,6 +28,17 @@ Don't forget!
 - Sound effects
 - Lighting
 
+### Tuesday 4/4
+Finished:
+- Fixed bullet collisions, added delay to collision after hitting a wall
+- Added flicker to player flashlight after shooting to signal when they can shoot again
+- Dropped 2d line from enemy
+- Tuned player speed and rotation a bit
+
+Todo:
+- Lets make some damn levels
+- Add 2D line to enemy
+
 ### Monday 4/3
 Finished:
 - Some lighting work

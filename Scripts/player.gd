@@ -2,8 +2,8 @@ extends CharacterBody2D
 class_name Player
 
 @export var speed = 125  # move speed in pixels/sec
-@export var reverse_speed = 100
-@export var rotation_speed = 1.5  # turning speed in radians/sec
+@export var reverse_speed = 75
+@export var rotation_speed = 1.25  # turning speed in radians/sec
 @export var projectile_speed = 300
 
 @onready var Bullet : PackedScene = preload("res://Scenes/Bullet.tscn")
@@ -12,6 +12,7 @@ class_name Player
 @onready var AimingLine: Line2D = $AimingLine
 @onready var MuzzleAim: Marker2D = $MuzzleAim
 @onready var AimingRay: RayCast2D = $AimingRay
+@onready var Flashlight: PointLight2D = $Flashlight
 
 var is_alive = true
 
@@ -49,6 +50,7 @@ func hit():
 func shoot():
 	# create bullet
 	WeaponTimer.start()
+	dim_flashlight()
 	var b: Bullet = Bullet.instantiate()
 	b.initialize(projectile_speed, rotation)
 	owner.add_child(b)
@@ -66,5 +68,11 @@ func update_trajectory():
 		AimingLine.add_point(point)
 	else:
 		AimingLine.add_point(Vector2(transform.x.x + 10000, transform.x.y))
-	AimingLine.show()
+	
+func dim_flashlight():
+	var light_tween = get_tree().create_tween()
+	var flicker_length = WeaponTimer.wait_time * 3 / 4
+	var delay_length = WeaponTimer.wait_time - flicker_length - .1
+	light_tween.tween_property(Flashlight, "energy", 0, .1)
+	light_tween.tween_property(Flashlight, "energy", Flashlight.energy, flicker_length).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE).set_delay(delay_length)
 

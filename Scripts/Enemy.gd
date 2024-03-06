@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var speed = 75  # move speed in pixels/sec
-@export var reverse_speed = 100
+@export var reverse_speed = 25
 @export var rotation_speed = 1.  # turning speed in radians/sec
 @export var alert_distance = 500 # distance from which the enemy should start moving
 @export var engagement_distance = 300 # distance from which the enemy should start shooting

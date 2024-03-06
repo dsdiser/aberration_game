@@ -7,8 +7,8 @@ class_name Bullet
 var speed = 150
 var num_bounces = 1
 var is_active = true
-var prev_collision_id: int = -1
 var traveling_tween: Tween = null
+var collision_enabled: bool = true
 
 func initialize(_speed: float, _direction: float):
 	speed = _speed
@@ -26,7 +26,7 @@ func _physics_process(delta):
 	if not is_active:
 		return
 	var collision = move_and_collide(velocity * delta) 
-	if collision:
+	if collision_enabled and collision:
 		handle_collision(collision)
 
 		
@@ -42,13 +42,24 @@ func hit():
 
 func handle_collision(collision: KinematicCollision2D):
 	var collider = collision.get_collider()
-	if (collider is Player or collider is Enemy or collider is Bullet) and prev_collision_id != collision.get_collider_id():
-		prev_collision_id = collision.get_collider_id()
+	# Drop duplicate colliders from bouncing off walls
+	if (collider is Player or collider is Enemy or collider is Bullet):
 		collider.hit()
 		hit()
-	elif num_bounces >= 1 :
+	elif num_bounces >= 1:
 		num_bounces -= 1
 		velocity = velocity.bounce(collision.get_normal())
 		rotation = velocity.angle()
+		disable_collision()
 	elif num_bounces < 1:
 		hit()
+
+
+func disable_collision():
+	# dirty hack to avoid wall collision getting triggered twice when the bullet bounces
+	collision_enabled = false
+	await get_tree().create_timer(.25).timeout
+	collision_enabled = true
+
+
+	

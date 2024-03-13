@@ -1,20 +1,23 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var speed = 75  # move speed in pixels/sec
+@export var speed = 50  # move speed in pixels/sec
 @export var reverse_speed = 25
-@export var rotation_speed = 1.  # turning speed in radians/sec
+@export var rotation_speed = .75  # turning speed in radians/sec
 @export var alert_distance = 500 # distance from which the enemy should start moving
 @export var engagement_distance = 300 # distance from which the enemy should start shooting
 @export var projectile_speed = 300
 @export var max_consecutive_shots = 2
+@export var bullet_scene : PackedScene
 
-@onready var Bullet : PackedScene = preload("res://Scenes/Bullet.tscn")
 @onready var WeaponTimer: Timer = $WeaponTimer
 @onready var ActionTimer: Timer = $ActionTimer
 @onready var Ray: RayCast2D = $RayCast2D
 @onready var NavAgent: NavigationAgent2D = $NavigationAgent2D
 @onready var AnimatedSprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var MuzzleAim: Marker2D = $MuzzleAim
+@onready var AimingLine: Line2D = $AimingLine
+@onready var AimingRay: RayCast2D = $AimingRay
 
 enum EnemyState {STATE_WAIT, STATE_MOVE, STATE_AIM}
 var current_state = EnemyState.STATE_WAIT
@@ -36,6 +39,9 @@ func ai_process(delta):
 	if current_state == EnemyState.STATE_WAIT:
 		# Check for player within radius
 		if (ActionTimer.is_stopped() and (is_activated or global_position.distance_to(player.global_position) < alert_distance)):
+			if AimingLine.hidden:
+				AimingLine.show()
+				await get_tree().create_timer(.75).timeout
 			current_state = EnemyState.STATE_MOVE
 			nav_to_player(delta)
 
@@ -73,6 +79,7 @@ func nav_to_player(delta):
 	velocity = transform.x * rotation_ratio * speed
 	move_and_slide()
 
+
 func _physics_process(delta):
 	if not is_alive:
 		return
@@ -80,25 +87,46 @@ func _physics_process(delta):
 		is_activated = false
 	else:
 		ai_process(delta)
+		
+func _process(_delta):
+	if is_alive:
+		update_trajectory()
+
 
 func hit():
 	# Add hit effect
 	if (AnimatedSprite.animation != 'explode'):
 		AnimatedSprite.play('explode')
 		is_alive = false
+		AimingLine.hide()
 		await AnimatedSprite.animation_finished
 		queue_free()
+
 
 func shoot():
 	# create bullet
 	WeaponTimer.start()
-	var b: Bullet = Bullet.instantiate()
+	var b: Bullet = bullet_scene.instantiate()
 	b.initialize(projectile_speed, rotation)
 	owner.add_child(b)
 	b.transform = $Muzzle.global_transform
 
 
-func _on_bullet_detector_body_entered(body):
+func update_trajectory():
+	AimingLine.clear_points()
+	AimingLine.add_point(MuzzleAim.position)
+	# raycast until we hit a collider, that is our final point
+	if AimingRay.is_colliding():
+		var collision_point = to_local(AimingRay.get_collision_point())
+		var difference_ratio = (MuzzleAim.position.distance_to(collision_point) - AimingLine.width) / MuzzleAim.position.distance_to(collision_point)
+		var point = (1 - difference_ratio) * MuzzleAim.position + difference_ratio * collision_point
+		AimingLine.add_point(point)
+	else:
+		AimingLine.add_point(Vector2(transform.x.x + 10000, transform.x.y))
+	
+
+
+func _on_bullet_detector_body_entered(_body):
 	# if a bullet is shot near the enemy, they should activate and look for the player
 	await get_tree().create_timer(2.0).timeout
 	is_activated = true

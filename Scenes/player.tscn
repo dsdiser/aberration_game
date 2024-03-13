@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8i00b3h2h44"]
+[gd_scene load_steps=16 format=3 uid="uid://c8i00b3h2h44"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_1jghh"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_1jghh"]
 [ext_resource type="Texture2D" uid="uid://dvf8wf1pte7d" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_blue.png" id="2_1q85x"]
+[ext_resource type="PackedScene" uid="uid://dw72gyfldxlly" path="res://Scenes/Bullet.tscn" id="2_f2hfq"]
 [ext_resource type="Texture2D" uid="uid://ds3fujr8vti81" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion1.png" id="3_3xqfn"]
 [ext_resource type="Texture2D" uid="uid://b68ly31xcbpxf" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion2.png" id="4_we5k8"]
 [ext_resource type="Texture2D" uid="uid://daugfheh27fy8" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion3.png" id="5_kd0j6"]
@@ -59,6 +60,7 @@ fill_from = Vector2(0.5, 0.5)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_1jghh")
+bullet_scene = ExtResource("2_f2hfq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.8, 0.8)
@@ -104,8 +106,8 @@ shadow_enabled = true
 shadow_filter = 1
 shadow_filter_smooth = 1.0
 texture = ExtResource("10_mffuj")
-offset = Vector2(409, 8)
-texture_scale = 4.0
+offset = Vector2(316, 6)
+texture_scale = 3.0
 
 [node name="Arealight" type="PointLight2D" parent="."]
 scale = Vector2(3, 3)

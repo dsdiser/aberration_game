@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="aberration"
-run/main_scene="res://Scenes/level1.tscn"
+run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+GlobalLoader="*res://Scripts/global_loader.gd"
 
 [display]
 

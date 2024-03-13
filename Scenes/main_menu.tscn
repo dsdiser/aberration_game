@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://ig70pjtrmiy6"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_7x3pe"]
+[ext_resource type="Texture2D" uid="uid://dj8ylsdwjnpda" path="res://assets/a-tank-game-3-9-2024.png" id="2_1ev7b"]
+[ext_resource type="Texture2D" uid="uid://dvf8wf1pte7d" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_blue.png" id="2_iahel"]
+[ext_resource type="Texture2D" uid="uid://ceskk3wpatt56" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_red.png" id="3_4qwt4"]
+
+[sub_resource type="Gradient" id="Gradient_qhnw1"]
+offsets = PackedFloat32Array(0.00614754, 0.45082, 0.729508, 1)
+colors = PackedColorArray(0, 0.580392, 1, 1, 0.185842, 0.315925, 0.54433, 1, 0.53006, 0.303796, 0.480907, 1, 0.407843, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qpa8s"]
+gradient = SubResource("Gradient_qhnw1")
+fill = 1
+fill_from = Vector2(0.5, 0.775)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7x3pe")
+
+[node name="Gradient" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1278.0
+offset_bottom = 722.0
+texture = SubResource("GradientTexture2D_qpa8s")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -411.5
+offset_top = 103.0
+offset_right = 411.5
+offset_bottom = 341.0
+grow_horizontal = 2
+texture = ExtResource("2_1ev7b")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Tank1" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -386.0
+offset_top = -271.5
+offset_right = 196.0
+offset_bottom = 271.5
+grow_vertical = 2
+texture = ExtResource("2_iahel")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Tank2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -241.5
+offset_right = 350.0
+offset_bottom = 301.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_4qwt4")
+expand_mode = 1
+stretch_mode = 4
+flip_h = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = -181.5
+offset_right = 223.0
+offset_bottom = 181.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Start" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -1,12 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://dq348td67sajs"]
+[gd_scene load_steps=15 format=3 uid="uid://dq348td67sajs"]
 
 [ext_resource type="Texture2D" uid="uid://ceskk3wpatt56" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_red.png" id="1_c4w2j"]
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_v8lfp"]
+[ext_resource type="PackedScene" uid="uid://dw72gyfldxlly" path="res://Scenes/Bullet.tscn" id="2_ufg4n"]
 [ext_resource type="Texture2D" uid="uid://ds3fujr8vti81" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion1.png" id="3_w3b4a"]
 [ext_resource type="Texture2D" uid="uid://b68ly31xcbpxf" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion2.png" id="4_uryjy"]
 [ext_resource type="Texture2D" uid="uid://daugfheh27fy8" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion3.png" id="5_pd07r"]
 [ext_resource type="Texture2D" uid="uid://164lx1okh11t" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion4.png" id="6_nikir"]
 [ext_resource type="Texture2D" uid="uid://diwd4ubu6hppr" path="res://assets/kenney_topdownTanksRedux/PNG/Default size/explosion5.png" id="7_7kwq0"]
+[ext_resource type="Shader" path="res://shaders/dottedline.gdshader" id="8_skonv"]
+[ext_resource type="Texture2D" uid="uid://b73gxtuhnc1vi" path="res://assets/line.png" id="9_wlec2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5ji5e"]
 blend_mode = 2
@@ -43,10 +46,16 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ji03a"]
-radius = 62.0081
+radius = 69.0072
 
-[node name="Enemy" type="CharacterBody2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6is3r"]
+shader = ExtResource("8_skonv")
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_v8lfp")
+alert_distance = 600
+engagement_distance = 350
+bullet_scene = ExtResource("2_ufg4n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_5ji5e")
@@ -86,6 +95,27 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetector"]
 shape = SubResource("CircleShape2D_ji03a")
 debug_color = Color(0.654902, 0.517647, 0, 0.419608)
+
+[node name="AimingLine" type="Line2D" parent="."]
+visible = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_6is3r")
+position = Vector2(7, 0)
+points = PackedVector2Array(38, 0)
+width = 15.0
+texture = ExtResource("9_wlec2")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="AimingRay" type="RayCast2D" parent="."]
+target_position = Vector2(1000, 0)
+collision_mask = 7
+collide_with_areas = true
+
+[node name="MuzzleAim" type="Marker2D" parent="."]
+position = Vector2(37, 0)
 
 [connection signal="timeout" from="ActionTimer" to="." method="_on_action_timer_timeout"]
 [connection signal="body_entered" from="BulletDetector" to="." method="_on_bullet_detector_body_entered"]

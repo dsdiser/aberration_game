@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8i00b3h2h44"]
+[gd_scene load_steps=19 format=3 uid="uid://c8i00b3h2h44"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_1jghh"]
 [ext_resource type="Texture2D" uid="uid://dvf8wf1pte7d" path="res://assets/kenney_topdownTanksRedux/PNG/Retina/tank_blue.png" id="2_1q85x"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://b73gxtuhnc1vi" path="res://assets/line.png" id="8_lb2fc"]
 [ext_resource type="Shader" path="res://shaders/dottedline.gdshader" id="8_nbbnv"]
 [ext_resource type="Texture2D" uid="uid://3hl1a4xhhrt1" path="res://assets/prop_fade_start_50.png" id="10_mffuj"]
+[ext_resource type="AudioStream" uid="uid://k86d5npvn73" path="res://assets/Fire_Weapons_Sound_Effects_-_warship-main-battery-opening-fire-1.mp3" id="12_byfg6"]
+[ext_resource type="AudioStream" uid="uid://d0t2lwt3l161n" path="res://assets/Fire_Weapons_Sound_Effects_-_sniper-rifle-loading-ammo-3.mp3" id="13_05bpv"]
+[ext_resource type="AudioStream" uid="uid://bu8glmjsburxs" path="res://assets/loop_0.wav" id="14_sxif1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g3v7k"]
 animations = [{
@@ -113,3 +116,20 @@ texture_scale = 3.0
 scale = Vector2(3, 3)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_8x18q")
+
+[node name="ShootEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_byfg6")
+volume_db = -30.0
+pitch_scale = 1.54
+
+[node name="ReloadEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_05bpv")
+volume_db = -19.0
+
+[node name="AmbientEngine" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_sxif1")
+volume_db = -23.27
+pitch_scale = 0.95
+autoplay = true
+
+[connection signal="finished" from="AmbientEngine" to="." method="_on_ambient_engine_finished"]

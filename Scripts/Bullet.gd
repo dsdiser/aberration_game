@@ -17,7 +17,7 @@ func initialize(_speed: float, _direction: float):
 	rotation = velocity.angle()
 
 func _ready():
-	traveling_tween = get_tree().create_tween().set_loops()
+	traveling_tween = create_tween().set_loops()
 	traveling_tween.tween_property(AreaLight, "texture_scale", AreaLight.texture_scale, .5).set_ease(Tween.EASE_IN)
 	traveling_tween.tween_property(AreaLight, "texture_scale", AreaLight.texture_scale / 1.10, .5).set_ease(Tween.EASE_OUT)
 	
@@ -34,10 +34,11 @@ func hit():
 	is_active = false
 	AnimatedSprite.play('explode')
 	traveling_tween.stop()
-	var tween = get_tree().create_tween()
+	var tween = create_tween()
 	tween.tween_property(AreaLight, "texture_scale", AreaLight.texture_scale * 3, 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	await AnimatedSprite.animation_finished
 	await tween.finished
+	traveling_tween.stop()
 	queue_free()
 
 func handle_collision(collision: KinematicCollision2D):

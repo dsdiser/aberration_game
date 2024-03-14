@@ -6,7 +6,7 @@ class_name Enemy
 @export var rotation_speed = .75  # turning speed in radians/sec
 @export var alert_distance = 500 # distance from which the enemy should start moving
 @export var engagement_distance = 300 # distance from which the enemy should start shooting
-@export var projectile_speed = 300
+@export var projectile_speed = 200
 @export var max_consecutive_shots = 2
 @export var bullet_scene : PackedScene
 
@@ -18,6 +18,8 @@ class_name Enemy
 @onready var MuzzleAim: Marker2D = $MuzzleAim
 @onready var AimingLine: Line2D = $AimingLine
 @onready var AimingRay: RayCast2D = $AimingRay
+@onready var ShootEffect: AudioStreamPlayer = $ShootEffect
+@onready var ReloadEffect: AudioStreamPlayer = $ReloadEffect
 
 enum EnemyState {STATE_WAIT, STATE_MOVE, STATE_AIM}
 var current_state = EnemyState.STATE_WAIT
@@ -105,11 +107,15 @@ func hit():
 
 func shoot():
 	# create bullet
+	ReloadEffect.stop()
 	WeaponTimer.start()
 	var b: Bullet = bullet_scene.instantiate()
 	b.initialize(projectile_speed, rotation)
 	owner.add_child(b)
 	b.transform = $Muzzle.global_transform
+	ShootEffect.play()
+	await ShootEffect.finished
+	ReloadEffect.play()
 
 
 func update_trajectory():

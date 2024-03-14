@@ -36,7 +36,6 @@ position = Vector2(1151, 322)
 rotation = -3.14159
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-visible = false
 blend_mode = 1
 
 [node name="SceneHandler" parent="." instance=ExtResource("4_hsvss")]

@@ -28,7 +28,16 @@ Don't forget!
 - Sound effects
 - Lighting
 
-### Tuesday 4/4
+### Tuesday 3/12
+Finished:
+- Added some levels, they're just okay
+- Adjusted enemy aim line to collide with player and only show when they are active
+- Added level loading
+Todo:
+- Sound effects
+- Upload to itch and test 
+
+### Tuesday 3/5
 Finished:
 - Fixed bullet collisions, added delay to collision after hitting a wall
 - Added flicker to player flashlight after shooting to signal when they can shoot again
@@ -39,7 +48,7 @@ Todo:
 - Lets make some damn levels
 - Add 2D line to enemy
 
-### Monday 4/3
+### Monday 3/5
 Finished:
 - Some lighting work
 - Occlusion on boxes and walls 
